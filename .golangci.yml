@@ -1,0 +1,38 @@
+version: "2"
+
+run:
+  timeout: 5m
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - unused
+    - ineffassign
+    - revive
+    - gosec
+    - errorlint
+    - wrapcheck
+    - bodyclose
+    - noctx
+  settings:
+    errcheck:
+      check-type-assertions: true
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+  exclusions:
+    presets:
+      - std-error-handling
+    rules:
+      # Tests may return errors from fakes and stdlib unwrapped.
+      - path: _test\.go
+        linters:
+          - wrapcheck
+
+formatters:
+  enable:
+    - gofmt
