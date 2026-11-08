@@ -5,11 +5,12 @@
 Palai is an API-only Go service for generating, sharing and annotating cooking recipes, with
 dietary profiles and sourdough tools.
 
-- Allergies are **strict**: a recipe containing a declared allergen (including derivatives, such
-  as butter → dairy) must never be returned. Preferences (for example "not sweet") are **soft**.
+- Allergies and diets (vegan, halal, ...) are **strict**: a recipe that breaks one (including
+  derivatives, such as butter → dairy) must never be returned. Preferences (for example "not
+  sweet") are **soft**.
 - Recipes are generated with Claude via `github.com/anthropics/anthropic-sdk-go`, behind the
   `RecipeGenerator` interface, using structured outputs.
-- Allergy checks are deterministic Go code. Never rely on the LLM for safety (ADR 0006).
+- Allergy and diet checks are deterministic Go code. Never rely on the LLM for safety (ADR 0006).
 
 ## Commands
 
@@ -86,8 +87,8 @@ default, validation and a table-driven test case, and document them in README.md
 3. **Migrations are append-only.** Never edit or delete a merged migration; add a new one.
 4. **No live external calls in tests.** No real Claude API calls or other third-party network
    calls. Use fakes or `httptest.Server`.
-5. **Allergy safety is deterministic.** Every generated or edited recipe passes the Go allergen
-   check (ADR 0006), and the check fails closed.
+5. **Dietary safety is deterministic.** Every generated or edited recipe passes the Go allergen
+   and strict-diet check (ADR 0006), and the check fails closed.
 6. Don't weaken `.golangci.yml` or add `//nolint` without a justification comment.
 
 ## Workflow

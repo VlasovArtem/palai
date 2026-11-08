@@ -26,8 +26,8 @@ type RecipeGenerator interface {
 - We use structured outputs (a JSON schema derived from our Go types) so responses decode
   straight into `GeneratedRecipe`. We still validate the decoded value in Go (required fields,
   positive quantities, known units) and treat failures as generation errors.
-- The dietary profile goes into the prompt: allergies as hard constraints, preferences (for
-  example "not sweet") as soft ones. The prompt is advisory only. Safety is enforced afterwards
+- The dietary profile goes into the prompt: allergies and strict diets as hard constraints,
+  preferences (for example "not sweet") as soft ones. The prompt is advisory only. Safety is enforced afterwards
   by ADR 0006.
 - Model ID, max tokens and timeouts come from config. `ANTHROPIC_API_KEY` is read from the
   environment and never logged, echoed in errors, or stored.
