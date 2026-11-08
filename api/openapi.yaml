@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info:
+  title: Palai API
+  version: 0.1.0
+  description: Generate, share and annotate cooking recipes, with dietary profiles and sourdough tools.
+servers:
+  - url: http://localhost:8080
+paths:
+  /healthz:
+    get:
+      operationId: getHealthz
+      summary: Liveness check
+      tags: [ops]
+      responses:
+        "200":
+          description: Service is up.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+              example:
+                status: ok
+components:
+  schemas:
+    Health:
+      type: object
+      required: [status]
+      additionalProperties: false
+      properties:
+        status:
+          type: string
+          const: ok
